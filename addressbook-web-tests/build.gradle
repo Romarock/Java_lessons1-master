@@ -1,0 +1,54 @@
+apply plugin: 'java'
+
+
+repositories {mavenCentral()}
+dependencies {
+
+    compile 'org.testng:testng:7.0.0'
+    compile 'org.seleniumhq.selenium:selenium-java:4.0.0-alpha-2'
+    compile 'org.hamcrest:hamcrest-junit:2.0.0.0'
+    compile 'com.thoughtworks.xstream:xstream:1.4.11.1'
+    compile 'de.weltraumschaf.commons:jcommander:2.2.0'
+    compile 'com.google.code.gson:gson:2.8.6'
+
+
+
+}
+
+
+
+task testGroups(type: Test) {useTestNG
+        {
+
+
+    suites 'src/test/resourses/testng-groups.xml'
+}
+    if (project.hasProperty('browser')) {
+        systemProperty 'browser', "${browser}"
+
+    }
+
+    if (project.hasProperty('target')) {
+        systemProperty 'target', "${target}"
+
+    }
+
+
+}
+task testContacts(type: Test) {useTestNG
+        {
+
+
+            suites 'src/test/resourses/testng-contacts.xml'
+        }
+    if (project.hasProperty('browser')) {
+        systemProperty 'browser', "${browser}"
+
+    }
+
+    if (project.hasProperty('target')) {
+        systemProperty 'target', "${target}"
+
+    }
+
+}
