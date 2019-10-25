@@ -20,7 +20,7 @@ public class ContactCreation2 extends TestBase {
 
     @DataProvider
     public Iterator<Object[]> validContacts() throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resourses/contacts.xml")));
+        BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/contacts.xml")));
         String xml = "";
         String line = reader.readLine();
         while (line != null) {
@@ -46,7 +46,7 @@ public class ContactCreation2 extends TestBase {
 
     app.goTo().HomePage();
     Contacts before = app.contact().all();
-  //  File photo = new File("src/test/resourses/onyx.png");
+  //  File photo = new File("src/test/resources/onyx.png");
   //    ContactData contact = new ContactData()
   //          .withName("ivan").withAddress("ttt").withSecondName("hkhk").withEmail("666@uuu").withPhone("555")
   //            .withWorkPhone("555").withHomePhone("757").withEmail2("5865").withEmail3("24647").withPhoto(photo);
