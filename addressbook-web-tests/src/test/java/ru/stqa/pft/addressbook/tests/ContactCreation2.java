@@ -45,14 +45,14 @@ public class ContactCreation2 extends TestBase {
   public void testContactCreation2(ContactData contact) throws Exception {
 
     app.goTo().HomePage();
-    Contacts before = app.contact().all();
+    Contacts before = app.db().contacts();
   //  File photo = new File("src/test/resources/onyx.png");
   //    ContactData contact = new ContactData()
   //          .withName("ivan").withAddress("ttt").withSecondName("hkhk").withEmail("666@uuu").withPhone("555")
   //            .withWorkPhone("555").withHomePhone("757").withEmail2("5865").withEmail3("24647").withPhoto(photo);
     app.contact().create(contact);
     app.goTo().HomePage();
-   Contacts after = app.contact().all();
+   Contacts after = app.db().contacts();
     assertThat(after.size(), equalTo(before.size() +1));
     assertThat(after, equalTo(
             before.withAdded( contact.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
