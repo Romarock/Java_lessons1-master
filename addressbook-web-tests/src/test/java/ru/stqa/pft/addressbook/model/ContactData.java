@@ -2,38 +2,63 @@ package ru.stqa.pft.addressbook.model;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
+import org.hibernate.annotations.Type;
 
+import javax.persistence.*;
 import java.io.File;
 import java.util.Objects;
 @XStreamAlias("contact")
+@Entity
+@Table(name = "addressbook")
 public class ContactData {
     public ContactData withId(int id) {
         this.id = id;
         return this;
     }
     @XStreamOmitField
+    @Id
+    @Column(name = "id")
     private  int id = Integer.MAX_VALUE;
+    @Column(name = "firstname")
     private  String name;
+    @Column(name = "lastname")
     private  String secondName;
+    @Column(name = "mobile")
+    @Type(type = "text")
     private  String phone;
+    @Transient
     private  String email;
+    @Column(name = "work")
+    @Type(type = "text")
     private  String workPhone;
+    @Column(name = "home")
+    @Type(type = "text")
     private  String homePhone;
+    @Transient
     private  String allPhones;
+    @Transient
     private  String email2;
+    @Transient
     private  String email3;
+    @Transient
     private  String allEmails;
+    @Transient
+    private String group;
+    @Column(name = "photo")
+    @Type(type = "text")
+    private String photo;
+    @Transient
+    private  String address;
 
     public ContactData withPhoto(File photo) {
-        this.photo = photo;
+        this.photo = photo.getPath();
         return this;
     }
 
     public File getPhoto() {
-        return photo;
+        return new File(photo);
     }
 
-    private File photo;
 
     public ContactData withAllPhones(String allPhones) {
         this.allPhones = allPhones;
@@ -92,7 +117,7 @@ public class ContactData {
         return this;
     }
 
-    private  String address;
+
 
     @Override
     public boolean equals(Object o) {
