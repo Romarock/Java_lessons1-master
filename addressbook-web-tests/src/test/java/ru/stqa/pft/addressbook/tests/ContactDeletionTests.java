@@ -20,19 +20,20 @@ public class ContactDeletionTests extends TestBase {
 
     app.goTo().HomePage();
 
-    if (! app.contact(). isThereAContact()) {
+    if (app.db().contacts().size() == 0)
+     {
 
         app.contact().create(new ContactData()
                 .withName("kolya").withSecondName("ivanov").withPhone("777").withEmail("777@888").withAddress("iii"));
         app.goTo().HomePage();
 
     }
-    Contacts before = app.contact().all();
+    Contacts before = app.db().contacts();
     ContactData deletedContact = before.iterator().next();
     app.contact().delete(deletedContact);
     app.goTo().HomePage();
 
-    Contacts after = app.contact().all();
+    Contacts after = app.db().contacts();
     Assert.assertEquals(after.size(), before.size() - 1);
 
         assertThat(after, equalTo(before.withOut(deletedContact)));
