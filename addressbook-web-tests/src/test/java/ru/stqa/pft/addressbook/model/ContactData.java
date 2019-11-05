@@ -50,10 +50,10 @@ public class ContactData {
     @Transient
     private  String address;
 
-    public ContactData withPhoto(File photo) {
-        this.photo = photo.getPath();
-        return this;
-    }
+ //   public ContactData withPhoto(File photo) {
+ //       this.photo = photo.getPath();
+ //       return this;
+ //   }
 
     public File getPhoto() {
         return new File(photo);

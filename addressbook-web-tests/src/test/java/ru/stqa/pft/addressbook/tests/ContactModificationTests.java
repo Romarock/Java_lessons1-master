@@ -19,22 +19,24 @@ public class ContactModificationTests extends TestBase {
 
         app.goTo().HomePage();
 
-        if (! app.contact(). isThereAContact()) {
+        if (app.db().contacts().size() == 0)
+        {
 
-            app.contact().create(new ContactData().withName("Ivan").withSecondName("Ivanov").withEmail("888@uuu").withAddress("yyyy").withPhone("888"));
+            app.contact().create(new ContactData()
+                    .withName("kolya").withSecondName("ivanov").withPhone("777").withEmail("777@888").withAddress("iii"));
             app.goTo().HomePage();
 
         }
-       Contacts before = app.contact().all();
+       Contacts before = app.db().contacts();
         ContactData modifiedContact = before.iterator().next();
 
         ContactData contact = new ContactData()
                 .withId(modifiedContact.getId()).withName("Vasya").withSecondName("ttt").withPhone("3956").withAddress("756").withEmail("sjgf@hh")
-                .withEmail3("555").withEmail2("666").withHomePhone("666").withWorkPhone("777").withPhoto(null);
+                .withEmail3("555").withEmail2("666").withHomePhone("666").withWorkPhone("777");
         app.contact().modify(contact);
         app.goTo().HomePage();
 
-        Contacts after = app.contact().all();
+        Contacts after = app.db().contacts();
         Assert.assertEquals(after.size(), before.size());
         assertThat(after, equalTo(before.withOut(modifiedContact).withAdded(contact)));
       }
