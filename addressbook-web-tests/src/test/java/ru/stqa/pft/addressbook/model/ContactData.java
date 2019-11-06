@@ -2,11 +2,15 @@ package ru.stqa.pft.addressbook.model;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
+import org.hibernate.annotations.ManyToAny;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.File;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
+
 @XStreamAlias("contact")
 @Entity
 @Table(name = "addressbook")
@@ -19,41 +23,67 @@ public class ContactData {
     @Id
     @Column(name = "id")
     private  int id = Integer.MAX_VALUE;
+
     @Column(name = "firstname")
     private  String name;
+
     @Column(name = "lastname")
     private  String secondName;
+
     @Column(name = "mobile")
     @Type(type = "text")
     private  String phone;
+
     @Transient
     private  String email;
+
     @Column(name = "work")
     @Type(type = "text")
     private  String workPhone;
+
     @Column(name = "home")
     @Type(type = "text")
     private  String homePhone;
+
     @Transient
     private  String allPhones;
+
     @Transient
     private  String email2;
+
     @Transient
     private  String email3;
+
     @Transient
     private  String allEmails;
-    @Transient
-    private String group;
+
+
+
     @Column(name = "photo")
     @Type(type = "text")
     private String photo;
+
     @Transient
     private  String address;
+
+
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "address_in_groups"
+            , joinColumns = @JoinColumn(name = "id")
+            , inverseJoinColumns = @JoinColumn(name = "group_id" ))
+    private Set<GroupData> groups = new HashSet<GroupData>();
+
 
  //   public ContactData withPhoto(File photo) {
  //       this.photo = photo.getPath();
  //       return this;
  //   }
+
+    public Groups getGroups() {
+        return new Groups(groups);
+    }
+
 
     public File getPhoto() {
         return new File(photo);
@@ -186,6 +216,12 @@ public class ContactData {
                 ", name='" + name + '\'' +
                 ", secondName='" + secondName + '\'' +
                 '}';
+    }
+
+    public ContactData inGroup(GroupData group){
+
+        groups.add(group);
+        return this;
     }
 
 

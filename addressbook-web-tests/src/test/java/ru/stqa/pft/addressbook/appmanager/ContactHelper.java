@@ -1,8 +1,10 @@
 package ru.stqa.pft.addressbook.appmanager;
 
+import org.hibernate.sql.Select;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
 
@@ -36,8 +38,15 @@ public class ContactHelper extends HelperBase {
         typeContactData(By.name("email3"), contactData.getEmail3());
        // attach(By.name("photo"), contactData.getPhoto());
 
+        //    if (contactData.getGroups().size() > 0) {
+        //        Assert.assertTrue(contactData.getGroups() == 1);
+        //        new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+            }
 
-    }
+       // }
+
+
+
 
 
     public void contactSelect (int index) {
@@ -182,7 +191,15 @@ public class ContactHelper extends HelperBase {
 
 
     }
-}
+
+    public void ContactAdding(ContactData contact) {
+
+        contactSelectById(contact.getId());
+
+        wd.findElement(By.name("add")).click();
+    }
+    }
+
 
 
 

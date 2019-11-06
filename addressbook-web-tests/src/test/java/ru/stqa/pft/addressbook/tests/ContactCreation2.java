@@ -3,6 +3,7 @@ import com.thoughtworks.xstream.XStream;
 import org.testng.annotations.*;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
+import ru.stqa.pft.addressbook.model.Groups;
 
 
 import java.io.BufferedReader;
@@ -18,38 +19,39 @@ import static org.hamcrest.junit.MatcherAssert.assertThat;
 
 public class ContactCreation2 extends TestBase {
 
-    @DataProvider
-    public Iterator<Object[]> validContacts() throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/contacts.xml")));
-        String xml = "";
-        String line = reader.readLine();
-        while (line != null) {
+//    @DataProvider
+//    public Iterator<Object[]> validContacts() throws IOException {
+//        BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/contacts.xml")));
+//        String xml = "";
+//        String line = reader.readLine();
+//        while (line != null) {
 
-            xml += line;
+//            xml += line;
 
-            line = reader.readLine();
-        }
-        XStream xstream = new XStream();
-        xstream.processAnnotations(ContactData.class);
-        List<ContactData> contacts =  (List<ContactData>) xstream.fromXML(xml);
-        return contacts.stream().map((g) -> new Object[] {g}).collect(Collectors.toList()).iterator();
-
-
-
-    }
+//            line = reader.readLine();
+//        }
+//        XStream xstream = new XStream();
+//        xstream.processAnnotations(ContactData.class);
+//        List<ContactData> contacts =  (List<ContactData>) xstream.fromXML(xml);
+//        return contacts.stream().map((g) -> new Object[] {g}).collect(Collectors.toList()).iterator();
 
 
 
+//    }
 
-  @Test (dataProvider = "validContacts")
-  public void testContactCreation2(ContactData contact) throws Exception {
 
+
+
+  @Test
+  public void testContactCreation2() throws Exception {
+
+      Groups groups = app.db().groups();
     app.goTo().HomePage();
     Contacts before = app.db().contacts();
   //  File photo = new File("src/test/resources/onyx.png");
-  //    ContactData contact = new ContactData()
-  //          .withName("ivan").withAddress("ttt").withSecondName("hkhk").withEmail("666@uuu").withPhone("555")
-  //            .withWorkPhone("555").withHomePhone("757").withEmail2("5865").withEmail3("24647").withPhoto(photo);
+      ContactData contact = new ContactData()
+              .withName("ivan").withAddress("ttt").withSecondName("hkhk").withEmail("666@uuu").withPhone("555")
+              .withWorkPhone("555").withHomePhone("757").withEmail2("5865").withEmail3("24647").inGroup(groups.iterator().next());
     app.contact().create(contact);
     app.goTo().HomePage();
    Contacts after = app.db().contacts();

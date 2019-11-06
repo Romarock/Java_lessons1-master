@@ -56,6 +56,19 @@ public class DbHelper {
 
     }
 
+    public Contacts contactsInGroups() {
+
+
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        List<ContactData> result = session.createQuery("from ContactData  where group_id != '0' ").list();
+
+        session.getTransaction().commit();
+        session.close();
+        return new Contacts(result);
+
+    }
+
 }
 
 
