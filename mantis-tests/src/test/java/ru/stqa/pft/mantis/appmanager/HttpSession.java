@@ -11,9 +11,6 @@ import org.apache.http.impl.client.LaxRedirectStrategy;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
-
-import javax.swing.text.html.parser.Entity;
-import java.io.Closeable;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +29,7 @@ public class HttpSession {
 
     public boolean login(String username, String password) throws IOException {
 
-HttpPost post = new HttpPost (app.getProperty("web.baseUrl") + "/login.php");
+HttpPost post = new HttpPost (app.getProperty("web.baseUrl") + "/login_page.php");
 List<NameValuePair> params = new ArrayList<>();
 params.add(new BasicNameValuePair("username", username));
 params.add(new BasicNameValuePair("password", password));
@@ -41,7 +38,8 @@ params.add(new BasicNameValuePair("return", "index.php"));
 post.setEntity(new UrlEncodedFormEntity(params));
 CloseableHttpResponse response = httpclient.execute(post);
 String body = geTextFrom(response);
-return body.contains(String.format("<span class=\"italic\">%s</span>", username ));
+        System.out.println(String.format("<a href=\"/mantisbt-2.22.1/mantisbt-2.22.1/account_page.php\">%s</a>", username ));
+return body.contains(String.format("<a href=\"/mantisbt-2.22.1/mantisbt-2.22.1/account_page.php\">%s</a>", username ));
 
     }
 
@@ -61,7 +59,7 @@ public boolean isLoggedInAs (String username) throws  IOException {
         HttpGet get = new HttpGet(app.getProperty("web.baseUrl") + "/index.php");
         CloseableHttpResponse response = httpclient.execute(get);
         String body = geTextFrom(response);
-        return  body.contains(String.format("<span class=\"italic\">%s</span>", username ));
+        return  body.contains(String.format("<a href=\"/mantisbt-2.22.1/mantisbt-2.22.1/account_page.php\">%s</a>", username ));
 
 }
 
