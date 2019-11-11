@@ -7,18 +7,19 @@ dependencies {
     compile 'org.testng:testng:7.0.0'
     compile 'org.seleniumhq.selenium:selenium-java:4.0.0-alpha-2'
     compile 'org.hamcrest:hamcrest-junit:2.0.0.0'
+    implementation 'org.apache.httpcomponents:httpclient:4.5.10'
+
 
 
 
 
 }
 
-test {
-    useTestNG {
+test { useTestNG()}
 
 
-    suites 'src/test/resources/testng.xml'
-}
+
+
     if (project.hasProperty('browser')) {
         systemProperty 'browser', "${browser}"
 
@@ -30,5 +31,5 @@ test {
     }
 
 
-}
+
 

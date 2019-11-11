@@ -7,8 +7,9 @@ import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.GroupData;
+import ru.stqa.pft.addressbook.model.Groups;
 
-
+import java.util.List;
 
 
 public class AddContactToGroupTest extends TestBase {
@@ -29,7 +30,11 @@ public class AddContactToGroupTest extends TestBase {
             app.group().create(new GroupData().withName("test2"));
         }
 
+        app.contact().ContactFilter();
+
     }
+
+
 
 
 
@@ -37,15 +42,11 @@ public class AddContactToGroupTest extends TestBase {
     public void contactModificationTests(){
         app.goTo().HomePage();
         Contacts contactList = app.db().contacts();
+        Groups groupList = app.db().groups();
+
 
             ContactData addingContact = contactList.iterator().next();
-            if (addingContact.getGroups().isEmpty()) {
-                app.contact().ContactAdding(addingContact);
 
-
-            }
-
-            }
 
 
         }
