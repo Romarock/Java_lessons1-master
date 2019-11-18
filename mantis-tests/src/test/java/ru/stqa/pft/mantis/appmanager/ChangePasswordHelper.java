@@ -48,7 +48,7 @@ public class ChangePasswordHelper extends HelperBase {
         wd.findElement(By.xpath("//button[@type='submit']")).click();
         HttpSession session = app.newSession();
         assertTrue(session.login(user, password));
-        System.out.println("ok");
+
 
     }
 
