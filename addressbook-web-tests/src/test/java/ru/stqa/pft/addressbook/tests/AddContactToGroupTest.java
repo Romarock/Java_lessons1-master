@@ -17,8 +17,7 @@ public class AddContactToGroupTest extends TestBase {
     @BeforeMethod
 
     public void ensurePreconditions() {
-        if (app.db().contacts().size() == 0)
-        {
+        if (app.db().contacts().size() == 0) {
 
             app.contact().create(new ContactData()
                     .withName("kolya").withSecondName("ivanov").withPhone("777").withEmail("777@888").withAddress("iii"));
@@ -35,22 +34,18 @@ public class AddContactToGroupTest extends TestBase {
     }
 
 
-
-
-
     @Test
-    public void contactModificationTests(){
+    public void contactModificationTests() {
         app.goTo().HomePage();
         Contacts contactList = app.db().contacts();
         Groups groupList = app.db().groups();
 
 
-            ContactData addingContact = contactList.iterator().next();
+        ContactData addingContact = contactList.iterator().next();
 
 
-
-        }
-
+    }
+}
 
 
 

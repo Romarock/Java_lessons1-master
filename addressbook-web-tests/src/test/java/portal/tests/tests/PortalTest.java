@@ -17,7 +17,7 @@ public class PortalTest {
     public void testPortal1() throws Exception {
 
 
-        int e = 100;
+        int e = 300;
 
         for (int i = 0; i < e ; i++) {
         wd = new ChromeDriver();
@@ -38,13 +38,13 @@ public class PortalTest {
     public void login() {
         wd.findElement(By.id("j_username")).click();
         wd.findElement(By.id("j_username")).clear();
-        wd.findElement(By.id("j_username")).sendKeys("");
+        wd.findElement(By.id("j_username")).sendKeys("X0301_DEV03");
         wd.findElement(By.id("j_vo")).click();
         wd.findElement(By.id("j_vo")).clear();
-        wd.findElement(By.id("j_vo")).sendKeys("");
+        wd.findElement(By.id("j_vo")).sendKeys("X0301");
         wd.findElement(By.id("j_password")).click();
         wd.findElement(By.id("j_password")).clear();
-        wd.findElement(By.id("j_password")).sendKeys("");
+        wd.findElement(By.id("j_password")).sendKeys("#1qwert#");
         wd.findElement(By.id("login")).click();
 
 
@@ -68,6 +68,7 @@ public class PortalTest {
         wd.findElement(By.id("customerSearchForm:j_idt111:customerSearchTmoBox:numberEntry")).clear();
         wd.findElement(By.id("customerSearchForm:j_idt111:customerSearchTmoBox:numberEntry")).sendKeys("4916099661100");
         wd.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='*'])[5]/following::span[1]")).click();
+
     }
 
     public void goToTSG() {

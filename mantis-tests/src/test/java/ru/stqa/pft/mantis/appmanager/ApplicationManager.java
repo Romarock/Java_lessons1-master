@@ -23,6 +23,7 @@ public class ApplicationManager {
     private RegistrationHelper registrationHelper;
     private FtpHelper ftp;
     private MailHelper mailHelper;
+    private ChangePasswordHelper changePasswordHelper;
 
 
     public ApplicationManager(String browser)  {
@@ -74,7 +75,7 @@ public class ApplicationManager {
                 wd = new InternetExplorerDriver();
             }
 
-            wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+            wd.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
             wd.get(properties.getProperty("web.baseUrl"));
 
 
@@ -97,5 +98,10 @@ public class ApplicationManager {
             mailHelper = new MailHelper(this);
         }
         return mailHelper;
+    }
+
+    public ChangePasswordHelper changePassword() {
+        changePasswordHelper = new ChangePasswordHelper(this);
+        return changePasswordHelper;
     }
 }

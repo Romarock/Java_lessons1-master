@@ -32,7 +32,8 @@ public class RegistrationTests extends TestBase {
         List<MailMessage> mailMessages = app.mail().waitForMail(2, 10000);
         String confirmationLink =findConfirmationLink(mailMessages, email);
         app.registration().finish(confirmationLink,  password);
-        assertTrue(app.newSession().login(user, password));
+       assertTrue(app.newSession().login(user, password));
+        System.out.println("ok");
 
 
     }
