@@ -38,7 +38,7 @@ params.add(new BasicNameValuePair("return", "index.php"));
 post.setEntity(new UrlEncodedFormEntity(params));
 CloseableHttpResponse response = httpclient.execute(post);
 String body = geTextFrom(response);
-       
+
 return body.contains(String.format("<a href=\"/mantisbt-2.22.1/mantisbt-2.22.1/account_page.php\">%s</a>", username ));
 
     }
