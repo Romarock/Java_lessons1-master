@@ -148,20 +148,16 @@ public class ContactData {
     }
 
 
-
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ContactData that = (ContactData) o;
-        return id == that.id &&
-                Objects.equals(name, that.name) &&
-                Objects.equals(secondName, that.secondName);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, secondName);
+    public String toString() {
+        return "ContactData{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", secondName='" + secondName + '\'' +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                ", groups=" + groups +
+                '}';
     }
 
     public int getId() { return id;}
@@ -209,15 +205,6 @@ public class ContactData {
         return allEmails;
     }
 
-    @Override
-    public String toString() {
-        return "ContactData{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", secondName='" + secondName + '\'' +
-                '}';
-    }
-
     public ContactData inGroup(GroupData group){
 
         groups.add(group);
@@ -225,4 +212,21 @@ public class ContactData {
     }
 
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ContactData that = (ContactData) o;
+        return id == that.id &&
+                Objects.equals(name, that.name) &&
+                Objects.equals(secondName, that.secondName) &&
+                Objects.equals(phone, that.phone) &&
+                Objects.equals(email, that.email) &&
+                Objects.equals(groups, that.groups);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, secondName, phone, email, groups);
+    }
 }

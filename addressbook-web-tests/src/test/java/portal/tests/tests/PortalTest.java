@@ -22,7 +22,7 @@ public class PortalTest {
         for (int i = 0; i < e ; i++) {
         wd = new ChromeDriver();
         wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
-        wd.get("https://tvpp-cis1.otc.mshop.csolab.ru/portal/login.jsp");
+        wd.get("https://tvpp-cis3.otc.mshop.csolab.ru/portal/login.jsp");
         login();
         assertThat(isErrorPresent(), equalTo(false));
         customerSearch();
@@ -38,13 +38,13 @@ public class PortalTest {
     public void login() {
         wd.findElement(By.id("j_username")).click();
         wd.findElement(By.id("j_username")).clear();
-        wd.findElement(By.id("j_username")).sendKeys("");
+        wd.findElement(By.id("j_username")).sendKeys("X0301_DEV03");
         wd.findElement(By.id("j_vo")).click();
         wd.findElement(By.id("j_vo")).clear();
-        wd.findElement(By.id("j_vo")).sendKeys("");
+        wd.findElement(By.id("j_vo")).sendKeys("X0301");
         wd.findElement(By.id("j_password")).click();
         wd.findElement(By.id("j_password")).clear();
-        wd.findElement(By.id("j_password")).sendKeys("");
+        wd.findElement(By.id("j_password")).sendKeys("#1qwert#");
         wd.findElement(By.id("login")).click();
 
 

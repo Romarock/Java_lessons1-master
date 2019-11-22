@@ -2,6 +2,7 @@ package ru.stqa.pft.addressbook.appmanager;
 
 import org.hibernate.sql.Select;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
@@ -32,11 +33,11 @@ public class ContactHelper extends HelperBase {
         typeContactData(By.name("lastname"), contactData.getSecondName());
         typeContactData(By.name("mobile"), contactData.getPhone());
         typeContactData(By.name("email"), contactData.getEmail());
-        typeContactData(By.name("address"), contactData.getAddress());
-        typeContactData(By.name("home"), contactData.getHomePhone());
-        typeContactData(By.name("work"), contactData.getWorkPhone());
-        typeContactData(By.name("email2"), contactData.getEmail2());
-        typeContactData(By.name("email3"), contactData.getEmail3());
+    //    typeContactData(By.name("address"), contactData.getAddress());
+    //    typeContactData(By.name("home"), contactData.getHomePhone());
+    //    typeContactData(By.name("work"), contactData.getWorkPhone());
+    //    typeContactData(By.name("email2"), contactData.getEmail2());
+    //    typeContactData(By.name("email3"), contactData.getEmail3());
         // attach(By.name("photo"), contactData.getPhoto());
 
         //    if (contactData.getGroups().size() > 0) {
@@ -182,15 +183,40 @@ public class ContactHelper extends HelperBase {
 
     }
 
-    public void ContactAdding(ContactData contact) {
 
-        contactSelectById(contact.getId());
+    public int selectContact() {
+        //wd.findElement(By.name("selected[]")).click();
+        int id = Integer.parseInt(wd.findElement(By.name("selected[]")).getAttribute("id"));
+       contactSelectById(id);
+       return id;
+     //   wd.findElement(By.name("add")).click();
+    }
+
+    public void submitAddingContact() {
 
         wd.findElement(By.name("add")).click();
     }
 
+
+
+
     public void ContactFilter() {
         wd.findElement(By.name("group")).click();
+        new org.openqa.selenium.support.ui.Select(wd.findElement(By.name("group"))).selectByVisibleText("[none]");
+        wd.findElement(By.cssSelector("option[value=\"[none]\"]")).click();
+
+    }
+
+    public boolean isContactPresent() {
+
+
+        try {
+            wd.findElement(By.name("selected[]"));
+
+            return true;
+        } catch (NoSuchElementException e) {
+            return false;
+        }
 
     }
 
