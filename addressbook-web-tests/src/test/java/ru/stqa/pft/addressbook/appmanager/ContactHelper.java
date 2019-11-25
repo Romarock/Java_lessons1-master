@@ -33,11 +33,11 @@ public class ContactHelper extends HelperBase {
         typeContactData(By.name("lastname"), contactData.getSecondName());
         typeContactData(By.name("mobile"), contactData.getPhone());
         typeContactData(By.name("email"), contactData.getEmail());
-    //    typeContactData(By.name("address"), contactData.getAddress());
-    //    typeContactData(By.name("home"), contactData.getHomePhone());
-    //    typeContactData(By.name("work"), contactData.getWorkPhone());
-    //    typeContactData(By.name("email2"), contactData.getEmail2());
-    //    typeContactData(By.name("email3"), contactData.getEmail3());
+        //    typeContactData(By.name("address"), contactData.getAddress());
+        //    typeContactData(By.name("home"), contactData.getHomePhone());
+        //    typeContactData(By.name("work"), contactData.getWorkPhone());
+        //    typeContactData(By.name("email2"), contactData.getEmail2());
+        //    typeContactData(By.name("email3"), contactData.getEmail3());
         // attach(By.name("photo"), contactData.getPhoto());
 
         //    if (contactData.getGroups().size() > 0) {
@@ -187,17 +187,15 @@ public class ContactHelper extends HelperBase {
     public int selectContact() {
         //wd.findElement(By.name("selected[]")).click();
         int id = Integer.parseInt(wd.findElement(By.name("selected[]")).getAttribute("id"));
-       contactSelectById(id);
-       return id;
-     //   wd.findElement(By.name("add")).click();
+        contactSelectById(id);
+        return id;
+        //   wd.findElement(By.name("add")).click();
     }
 
     public void submitAddingContact() {
 
         wd.findElement(By.name("add")).click();
     }
-
-
 
 
     public void ContactFilter() {
@@ -220,7 +218,28 @@ public class ContactHelper extends HelperBase {
 
     }
 
+    public void filterContactsInGroups(int groupID) {
+        //wd.findElement()
+
+        wd.findElement(By.name("group")).click();
+        new org.openqa.selenium.support.ui.Select(wd.findElement(By.name("group"))).selectByValue(Integer.toString(groupID));
+
+
+    }
+
+    public void submitContactRemoving() {
+        wd.findElement(By.name("remove")).click();
+
+
+    }
+
+
 }
+
+
+
+
+
 
 
 

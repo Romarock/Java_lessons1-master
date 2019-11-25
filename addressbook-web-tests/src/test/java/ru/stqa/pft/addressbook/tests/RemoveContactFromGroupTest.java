@@ -1,19 +1,17 @@
 package ru.stqa.pft.addressbook.tests;
+
+import org.openqa.selenium.By;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.GroupData;
 
-import java.util.Iterator;
-
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.junit.MatcherAssert.assertThat;
 
+public class RemoveContactFromGroupTest extends TestBase {
 
-public class AddContactToGroupTest extends TestBase {
-
-    private Iterator<ContactData> iterator;
 
     @BeforeMethod
 
@@ -29,43 +27,47 @@ public class AddContactToGroupTest extends TestBase {
 
             app.contact().create(new ContactData()
                     .withName("kolya").withSecondName("ivanov").withPhone("777").withEmail("777@888"));
+            app.contact().selectContact();
+            app.contact().submitAddingContact();
 
             app.goTo().HomePage();
         }
-        app.contact().ContactFilter();
+        app.goTo().groupPage();
+        int GroupId =  app.group().getGroupID();
+        app.goTo().HomePage();
+        app.contact().filterContactsInGroups(GroupId);
+       // app.goTo().contactsInGroup(GroupId);
+
+
         if (app.contact().isContactPresent() == false) {
 
-            app.contact().create(new ContactData()
-                    .withName("kolya").withSecondName("ivanov").withPhone("777").withEmail("777@888").withAddress("iii"));
+            app.contact().ContactFilter();
+            app.contact().selectContact();
+            app.contact().submitAddingContact();
             app.goTo().HomePage();
+            app.contact().filterContactsInGroups(GroupId);
         }
-
 
 
 
     }
+
+
+
 
 
     @Test
-    public void contactAddingToGroupTest() {
+    public void removeContact() {
 
         Contacts before = app.db().contacts();
-        app.goTo().HomePage();
-        app.contact().ContactFilter();
         int id = app.contact().selectContact();
-        ContactData modifiedContact =  app.db().selectedContact(id);
-        app.contact().submitAddingContact();
-        ContactData contactInGroup = app.db().selectedContact(id);
+        ContactData removedContact =  app.db().selectedContact(id);
+        app.contact().submitContactRemoving();
+        ContactData contactOutOfGroup = app.db().selectedContact(id);
         Contacts after = app.db().contacts();
-      assertThat(after, equalTo(before.withOut(modifiedContact).withAdded(contactInGroup)));
+        assertThat(after, equalTo(before.withOut(removedContact).withAdded(contactOutOfGroup)));
         System.out.println("ok");
 
-    }
-
-
-
-
-
 
     }
 
@@ -73,10 +75,5 @@ public class AddContactToGroupTest extends TestBase {
 
 
 
-
-
-
-
-
-
+}
 

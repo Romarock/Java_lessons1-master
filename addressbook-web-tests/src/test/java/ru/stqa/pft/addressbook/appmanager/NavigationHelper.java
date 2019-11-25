@@ -39,4 +39,12 @@ public class NavigationHelper extends HelperBase {
         wd.findElement(By.linkText("home")).click();
         }
     }
+
+    public void contactsInGroup(int id) {
+        String idVallue = Integer.toString(id);
+        wd.get("http://localhost/addressbook/?group='" + idVallue + "'");
+
+    }
+
+
 }

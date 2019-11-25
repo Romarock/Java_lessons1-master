@@ -17,22 +17,31 @@ public class PortalTest {
     public void testPortal1() throws Exception {
 
 
-        int e = 300;
+        int e = 30;
 
-        for (int i = 0; i < e ; i++) {
-        wd = new ChromeDriver();
-        wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
-        wd.get("https://tvpp-cis3.otc.mshop.csolab.ru/portal/login.jsp");
-        login();
-        assertThat(isErrorPresent(), equalTo(false));
-        customerSearch();
-        // goToTSG();
-        wd.quit();
+        for (int i = 0; i < e; i++) {
+            wd = new ChromeDriver();
+            wd.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
+            wd.get("https://tvpp-cis1.otc.mshop.csolab.ru/portal/login.jsp");
+            login();
+            assertThat(isErrorPresent(), equalTo(false));
+            customerSearch();
+            assertThat(isSearchErrorPresent(), equalTo(false));
+            logout();
+
+
+          //  wait(60000);
+
+
+            // goToTSG();
+            wd.quit();
 
         }
 
 
     }
+
+
 
 
     public void login() {
@@ -48,12 +57,12 @@ public class PortalTest {
         wd.findElement(By.id("login")).click();
 
 
-
-
-        for (int i = 0; i<10; i ++) {
+        for (int i = 0; i < 10; i++) {
 
             isWarningPresent();
-            if (isWarningPresent() == false){break;}
+            if (isWarningPresent() == false) {
+                break;
+            }
 
             wd.findElement(By.id("j_idt32:alreadyLogged-txt"));
             wd.findElement(By.id("j_idt32:kickUser-rd-grp:0")).click();
@@ -63,11 +72,12 @@ public class PortalTest {
 
     }
 
-    public void customerSearch() {
+    public void customerSearch() throws InterruptedException {
         wd.findElement(By.id("customerSearchForm:j_idt111:customerSearchTmoBox:numberEntry")).click();
         wd.findElement(By.id("customerSearchForm:j_idt111:customerSearchTmoBox:numberEntry")).clear();
         wd.findElement(By.id("customerSearchForm:j_idt111:customerSearchTmoBox:numberEntry")).sendKeys("4916099661100");
         wd.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='*'])[5]/following::span[1]")).click();
+
 
     }
 
@@ -75,6 +85,17 @@ public class PortalTest {
         wd.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='T-VPP Pflegetool Portal >'])[1]/following::span[1]")).click();
     }
 
+    public void logout() throws InterruptedException {
+
+        for (int i = 0; i < 10; i++) {
+
+            if (isResultPresent() == true) {break;}
+
+
+        }
+
+        wd.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Footer (Alt +4)'])[1]/following::span[1]")).click();
+    }
 
     public boolean isWarningPresent() {
 
@@ -86,7 +107,6 @@ public class PortalTest {
         } catch (NoSuchElementException e) {
             return false;
         }
-
 
 
     }
@@ -103,12 +123,33 @@ public class PortalTest {
         }
 
 
+    }
+
+    public boolean isSearchErrorPresent() {
+
+
+        try {
+            wd.findElement(By.id("j_idt2"));
+
+            return true;
+        } catch (NoSuchElementException e) {
+            return false;
+        }
+    }
+
+    public boolean isResultPresent() {
+
+
+        try {
+            wd.findElement(By.id("customerDataForm:customerInfo:customerList-txt"));
+
+            return true;
+        } catch (NoSuchElementException e) {
+            return false;
+        }
 
     }
+
+
 }
-
-
-
-
-
 
