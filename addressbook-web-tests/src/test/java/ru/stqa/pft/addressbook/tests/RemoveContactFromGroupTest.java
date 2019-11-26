@@ -36,7 +36,7 @@ public class RemoveContactFromGroupTest extends TestBase {
         int GroupId =  app.group().getGroupID();
         app.goTo().HomePage();
         app.contact().filterContactsInGroups(GroupId);
-       // app.goTo().contactsInGroup(GroupId);
+
 
 
         if (app.contact().isContactPresent() == false) {
