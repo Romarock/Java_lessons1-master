@@ -6,6 +6,7 @@ import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.GroupData;
 
 import java.util.Iterator;
+import java.util.List;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.junit.MatcherAssert.assertThat;
@@ -24,21 +25,36 @@ public class AddContactToGroupTest extends TestBase {
             app.group().create(new GroupData().withName("test2"));
         }
 
-
-        if (app.db().contacts().size() == 0) {
+        Contacts contacts = app.db().contacts();
+        if (contacts.size() == 0) {
 
             app.contact().create(new ContactData()
                     .withName("kolya").withSecondName("ivanov").withPhone("777").withEmail("777@888"));
 
             app.goTo().HomePage();
         }
-        app.contact().ContactFilter();
-        if (app.contact().isContactPresent() == false) {
 
-            app.contact().create(new ContactData()
-                    .withName("kolya").withSecondName("ivanov").withPhone("777").withEmail("777@888").withAddress("iii"));
-            app.goTo().HomePage();
+        int ContactsWithoutGroupsCount = 0;
+        for (int i = 0; i == contacts.size(); i++)
+        {
+            if  ( app.db().result().get(i).getGroups() == null)
+            {
+             ContactsWithoutGroupsCount ++;
+
+            }
+
+            if (ContactsWithoutGroupsCount == 0)
+            {
+                app.contact().create(new ContactData()
+                        .withName("kolya").withSecondName("ivanov").withPhone("777").withEmail("777@888"));
+
+                app.goTo().HomePage();
+
+            }
+
         }
+
+
 
 
 
@@ -58,7 +74,7 @@ public class AddContactToGroupTest extends TestBase {
         ContactData contactInGroup = app.db().selectedContact(id);
         Contacts after = app.db().contacts();
       assertThat(after, equalTo(before.withOut(modifiedContact).withAdded(contactInGroup)));
-        
+
 
     }
 

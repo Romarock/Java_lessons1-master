@@ -32,22 +32,24 @@ public class RemoveContactFromGroupTest extends TestBase {
 
             app.goTo().HomePage();
         }
-        app.goTo().groupPage();
-        int GroupId =  app.group().getGroupID();
-        app.goTo().HomePage();
-        app.contact().filterContactsInGroups(GroupId);
+        Contacts contacts = app.db().contacts();
 
+        int ContactsWithGroupsCount = 0;
+        for (int i = 0; i == contacts.size(); i++) {
+            if (app.db().result().get(i).getGroups() != null) {
+                ContactsWithGroupsCount++;
 
+            }
 
-        if (app.contact().isContactPresent() == false) {
+            if (ContactsWithGroupsCount == 0) {
 
-            app.contact().ContactFilter();
-            app.contact().selectContact();
-            app.contact().submitAddingContact();
-            app.goTo().HomePage();
-            app.contact().filterContactsInGroups(GroupId);
+                app.contact().ContactFilter();
+                app.contact().selectContact();
+                app.contact().submitAddingContact();
+
+            }
+
         }
-
 
 
     }
@@ -56,10 +58,18 @@ public class RemoveContactFromGroupTest extends TestBase {
 
 
 
+
+
     @Test
     public void removeContact() {
 
+        app.goTo().groupPage();
+        int GroupId =  app.group().getGroupID();
+        app.goTo().HomePage();
+        app.contact().filterContactsInGroups(GroupId);
+
         Contacts before = app.db().contacts();
+
         int id = app.contact().selectContact();
         ContactData removedContact =  app.db().selectedContact(id);
         app.contact().submitContactRemoving();
