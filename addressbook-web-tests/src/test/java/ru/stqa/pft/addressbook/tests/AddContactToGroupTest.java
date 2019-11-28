@@ -4,9 +4,9 @@ import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.GroupData;
+import ru.stqa.pft.addressbook.model.Groups;
 
 import java.util.Iterator;
-import java.util.List;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.junit.MatcherAssert.assertThat;
@@ -43,14 +43,14 @@ public class AddContactToGroupTest extends TestBase {
 
             }
 
-            if (ContactsWithoutGroupsCount == 0)
-            {
-                app.contact().create(new ContactData()
-                        .withName("kolya").withSecondName("ivanov").withPhone("777").withEmail("777@888"));
-
-                app.goTo().HomePage();
-
             }
+
+        if (ContactsWithoutGroupsCount == 0)
+        {
+            app.contact().create(new ContactData()
+                    .withName("kolya").withSecondName("ivanov").withPhone("777").withEmail("777@888"));
+
+            app.goTo().HomePage();
 
         }
 
@@ -65,20 +65,23 @@ public class AddContactToGroupTest extends TestBase {
     @Test
     public void contactAddingToGroupTest() {
 
-        Contacts before = app.db().contacts();
+
+        app.goTo().groupPage();
+        int groupId = app.group().getGroupID();
         app.goTo().HomePage();
         app.contact().ContactFilter();
         int id = app.contact().selectContact();
         ContactData modifiedContact =  app.db().selectedContact(id);
+        Groups contactGroupsBefore = modifiedContact.getGroups();
         app.contact().submitAddingContact();
         ContactData contactInGroup = app.db().selectedContact(id);
-        Contacts after = app.db().contacts();
-      assertThat(after, equalTo(before.withOut(modifiedContact).withAdded(contactInGroup)));
+        Groups contactGroupsAfter = contactInGroup.getGroups();
+        GroupData addedGroup = app.db().modifiedGroup(groupId);
+      assertThat(contactGroupsAfter, equalTo(contactGroupsBefore.withAdded(addedGroup)));
+        System.out.println("ok");
 
 
     }
-
-
 
 
 

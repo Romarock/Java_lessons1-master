@@ -72,7 +72,7 @@ public class DbHelper {
 
     }
 
-    public List<ContactData>  result() {
+    public List<ContactData> result() {
 
 
         Session session = sessionFactory.openSession();
@@ -80,11 +80,10 @@ public class DbHelper {
         List<ContactData> result = session.createQuery("from ContactData  where deprecated = '0000-00-00'").list();
 
 
-
         session.getTransaction().commit();
         session.close();
 
-        return  result;
+        return result;
 
     }
 
@@ -93,14 +92,27 @@ public class DbHelper {
 
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-       List <ContactData> selectedContact =  session.createQuery("from ContactData  where id = '" +id+ "'").list();
+        List<ContactData> selectedContact = session.createQuery("from ContactData  where id = '" + id + "'").list();
         ContactData selected = selectedContact.get(0);
         session.getTransaction().commit();
         session.close();
-        return  selected;
+        return selected;
 
     }
 
+
+    public GroupData modifiedGroup(int id) {
+
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        List<GroupData> modifiedGroup = session.createQuery("from GroupData  where id = '" + id + "'").list();
+        GroupData modified = modifiedGroup.get(0);
+        session.getTransaction().commit();
+        session.close();
+        return modified;
+
+
+    }
 
 
 }

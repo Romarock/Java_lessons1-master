@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.GroupData;
+import ru.stqa.pft.addressbook.model.Groups;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.junit.MatcherAssert.assertThat;
@@ -37,22 +38,25 @@ public class RemoveContactFromGroupTest extends TestBase {
         int ContactsWithGroupsCount = 0;
         for (int i = 0; i == contacts.size(); i++) {
             if (app.db().result().get(i).getGroups() != null) {
+
                 ContactsWithGroupsCount++;
-
+                System.out.println(ContactsWithGroupsCount);
             }
 
-            if (ContactsWithGroupsCount == 0) {
 
-                app.contact().ContactFilter();
-                app.contact().selectContact();
-                app.contact().submitAddingContact();
+        }
+        if(ContactsWithGroupsCount == 0){
+            app.contact().ContactFilter();
+            app.contact().selectContact();
+            app.contact().submitAddingContact();
 
-            }
+        }
 
         }
 
 
-    }
+
+
 
 
 
@@ -67,15 +71,14 @@ public class RemoveContactFromGroupTest extends TestBase {
         int GroupId =  app.group().getGroupID();
         app.goTo().HomePage();
         app.contact().filterContactsInGroups(GroupId);
-
-        Contacts before = app.db().contacts();
-
         int id = app.contact().selectContact();
         ContactData removedContact =  app.db().selectedContact(id);
+        Groups contactGroupsBefore = removedContact.getGroups();
         app.contact().submitContactRemoving();
         ContactData contactOutOfGroup = app.db().selectedContact(id);
-        Contacts after = app.db().contacts();
-        assertThat(after, equalTo(before.withOut(removedContact).withAdded(contactOutOfGroup)));
+        Groups contactGroupsAfter = contactOutOfGroup.getGroups();
+        GroupData removedGroup = app.db().modifiedGroup(GroupId);
+        assertThat(contactGroupsAfter, equalTo(contactGroupsBefore.withOut(removedGroup)));
         System.out.println("ok");
 
 
