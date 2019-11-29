@@ -21,12 +21,14 @@ public class ChangePasswordTests extends TestBase {
 @Test
 
 public void testChangePassword() throws IOException {
+
+    app.db().users();
     String email = "user1@localhost.localdomain";
     app.changePassword().login();
-   app.changePassword().resetPassword();
+    app.changePassword().resetPassword();
     List<MailMessage> mailMessages = app.mail().waitForMail(1, 10000);
     String confirmationLink =findConfirmationLink(mailMessages, email);
-   app.changePassword().newPassword(confirmationLink);
+    app.changePassword().newPassword(confirmationLink);
 
 
 

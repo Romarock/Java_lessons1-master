@@ -1,15 +1,22 @@
 package ru.stqa.pft.mantis.appmanager;
 
+import org.hibernate.Session;
 import org.openqa.selenium.By;
+import org.openqa.selenium.json.JsonOutput;
+import org.w3c.dom.ls.LSOutput;
+import ru.stqa.pft.mantis.model.User;
 
 
 import java.io.IOException;
+import java.util.List;
 
 
 import static org.testng.Assert.assertTrue;
 
 public class ChangePasswordHelper extends HelperBase {
+
     long now = System.currentTimeMillis();
+
     String user = "user1";
     String password = "root" + now;
 
