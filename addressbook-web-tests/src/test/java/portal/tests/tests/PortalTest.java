@@ -17,7 +17,7 @@ public class PortalTest {
     public void testPortal1() throws Exception {
 
 
-        int e = 30;
+        int e = 60;
 
         for (int i = 0; i < e; i++) {
             wd = new ChromeDriver();
