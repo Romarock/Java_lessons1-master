@@ -17,7 +17,7 @@ public class ChangePasswordHelper extends HelperBase {
 
     long now = System.currentTimeMillis();
 
-    String user = "user1";
+    String user = app.db().users().get(1).getName();
     String password = "root" + now;
 
     public ChangePasswordHelper(ApplicationManager app) {
@@ -27,7 +27,7 @@ public class ChangePasswordHelper extends HelperBase {
         super(app);
     }
     public void login() {
-        wd.get("http://localhost/mantisbt-2.22.1/mantisbt-2.22.1/login_page.php");
+        wd.get(app.getProperty("web.baseUrl")+"/login_page.php");
         wd.findElement(By.id("username")).clear();
         wd.findElement(By.id("username")).sendKeys("administrator");
         wd.findElement(By.xpath("//input[@value='Login']")).click();

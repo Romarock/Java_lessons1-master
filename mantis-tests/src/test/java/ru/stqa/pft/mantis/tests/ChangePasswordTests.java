@@ -23,6 +23,7 @@ public class ChangePasswordTests extends TestBase {
 public void testChangePassword() throws IOException {
 
     app.db().users();
+
     String email = "user1@localhost.localdomain";
     app.changePassword().login();
     app.changePassword().resetPassword();
