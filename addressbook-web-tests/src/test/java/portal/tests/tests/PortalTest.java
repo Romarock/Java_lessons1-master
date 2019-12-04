@@ -17,12 +17,12 @@ public class PortalTest {
     public void testPortal1() throws Exception {
 
 
-        int e = 60;
+        int e = 1;
 
         for (int i = 0; i < e; i++) {
             wd = new ChromeDriver();
             wd.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
-            wd.get("https://tvpp-cis1.otc.mshop.csolab.ru/portal/login.jsp");
+            wd.get("https://tvpp-cis2.otc.mshop.csolab.ru/portal/login.jsp");
             login();
             assertThat(isErrorPresent(), equalTo(false));
             customerSearch();

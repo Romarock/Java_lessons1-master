@@ -33,12 +33,11 @@ public class AddContactToGroupTest extends TestBase {
 
             app.goTo().HomePage();
         }
-    int  a   = app.db().result().get(0).getGroups().size();
-    int b   = app.db().result().get(1).getGroups().size();
-    int c =   app.db().result().get(2).getGroups().size();
+
+
 
         int ContactsWithoutGroupsCount = 0;
-        for (int i = 0; i == contacts.size(); i++)
+        for (int i = 0; i < contacts.size(); i++)
         {
             if  ( app.db().result().get(i).getGroups().size() == 0)
             {

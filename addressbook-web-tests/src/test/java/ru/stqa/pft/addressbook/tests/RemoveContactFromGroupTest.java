@@ -36,11 +36,11 @@ public class RemoveContactFromGroupTest extends TestBase {
         Contacts contacts = app.db().contacts();
 
         int ContactsWithGroupsCount = 0;
-        for (int i = 0; i == contacts.size(); i++) {
-            if (app.db().result().get(i).getGroups() != null) {
+        for (int i = 0; i < contacts.size(); i++) {
+            if (app.db().result().get(i).getGroups().size() != 0) {
 
                 ContactsWithGroupsCount++;
-                System.out.println(ContactsWithGroupsCount);
+
             }
 
 
