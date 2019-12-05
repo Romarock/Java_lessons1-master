@@ -1,14 +1,12 @@
 package ru.stqa.pft.mantis.appmanager;
 
-import org.hibernate.Session;
+
 import org.openqa.selenium.By;
-import org.openqa.selenium.json.JsonOutput;
-import org.w3c.dom.ls.LSOutput;
-import ru.stqa.pft.mantis.model.User;
+
 
 
 import java.io.IOException;
-import java.util.List;
+
 
 
 import static org.testng.Assert.assertTrue;
@@ -18,7 +16,7 @@ public class ChangePasswordHelper extends HelperBase {
     long now = System.currentTimeMillis();
 
     String user = app.db().users().get(1).getName();
-    String password = "root" + now;
+    String password = app.getProperty("web.adminPassword")  + now;
 
     public ChangePasswordHelper(ApplicationManager app) {
 
@@ -29,10 +27,10 @@ public class ChangePasswordHelper extends HelperBase {
     public void login() {
         wd.get(app.getProperty("web.baseUrl")+"/login_page.php");
         wd.findElement(By.id("username")).clear();
-        wd.findElement(By.id("username")).sendKeys("administrator");
+        wd.findElement(By.id("username")).sendKeys(app.getProperty("web.adminLogin"));
         wd.findElement(By.xpath("//input[@value='Login']")).click();
         wd.findElement(By.id("password")).clear();
-        wd.findElement(By.id("password")).sendKeys("root");
+        wd.findElement(By.id("password")).sendKeys(app.getProperty("web.adminPassword"));
         wd.findElement(By.xpath("//input[@value='Login']")).click();
     }
 
