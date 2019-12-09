@@ -32,6 +32,18 @@ public class User {
     @Column(name = "username")
     private String name;
 
+    @Column(name =  "email")
+    private String email;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public User withEmail(String email) {
+        this.email = email;
+        return this;
+    }
+
     public User withName(String name) {
         this.name = name;
         return this;

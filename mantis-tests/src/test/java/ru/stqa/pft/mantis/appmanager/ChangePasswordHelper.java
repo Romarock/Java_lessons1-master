@@ -2,11 +2,12 @@ package ru.stqa.pft.mantis.appmanager;
 
 
 import org.openqa.selenium.By;
-
+import ru.stqa.pft.mantis.model.User;
 
 
 import java.io.IOException;
-
+import java.util.List;
+import java.util.Random;
 
 
 import static org.testng.Assert.assertTrue;
@@ -15,8 +16,16 @@ public class ChangePasswordHelper extends HelperBase {
 
     long now = System.currentTimeMillis();
 
-    String user = app.db().users().get(1).getName();
+
+
+
+
+
+
+
+
     String password = app.getProperty("web.adminPassword")  + now;
+
 
     public ChangePasswordHelper(ApplicationManager app) {
 
@@ -34,7 +43,7 @@ public class ChangePasswordHelper extends HelperBase {
         wd.findElement(By.xpath("//input[@value='Login']")).click();
     }
 
-    public void resetPassword() {
+    public void resetPassword(String user) {
 
         wd.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Summary'])[1]/following::i[1]")).click();
         wd.findElement(By.linkText("Manage Users")).click();
@@ -42,7 +51,7 @@ public class ChangePasswordHelper extends HelperBase {
         wd.findElement(By.xpath("//input[@value='Reset Password']")).click();
     }
 
-    public void newPassword(String confirmationLink) throws IOException {
+    public void newPassword(String confirmationLink, String user) throws IOException {
         wd.get(confirmationLink);
         wd.findElement(By.id("password")).click();
         wd.findElement(By.id("password")).clear();
@@ -56,8 +65,19 @@ public class ChangePasswordHelper extends HelperBase {
 
 
     }
-
-
+    public int adminIndex() {
+        List<User> users = app.db().users();
+        for (int i = 0; i < users.size(); i++) {
+            String adminName = users.get(i).getName();
+            if (adminName.equals("administrator")) {
+                return i;
+            }
+        }
+        return Integer.parseInt(null);
+    }
 
 }
+
+
+
 
