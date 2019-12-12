@@ -30,6 +30,11 @@ public class Issue {
         return description;
     }
 
+    public Issue withDescription(String description) {
+        this.description = description;
+        return this;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -43,10 +48,5 @@ public class Issue {
     @Override
     public int hashCode() {
         return Objects.hash(id, subject, description);
-    }
-
-    public Issue withDescription(String description) {
-        this.description = description;
-        return this;
     }
 }

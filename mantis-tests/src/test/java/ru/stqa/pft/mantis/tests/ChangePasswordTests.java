@@ -36,7 +36,7 @@ public void testChangePassword() throws IOException {
 
 
 
- 
+
     app.changePassword().login();
     app.changePassword().resetPassword(userName);
     List<MailMessage> mailMessages = app.mail().waitForMail(1, 10000);
