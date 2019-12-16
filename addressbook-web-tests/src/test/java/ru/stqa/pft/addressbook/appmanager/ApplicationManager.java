@@ -43,7 +43,7 @@ public class ApplicationManager {
 
         dbHelper = new DbHelper();
 
-        if ("".equals(properties.getProperty("selenium-server"))) {
+        if ("".equals(properties.getProperty("selenium.server"))) {
 
             if (browser.equals(BrowserType.FIREFOX)) {
                 wd = new FirefoxDriver();
@@ -58,7 +58,7 @@ public class ApplicationManager {
 
            DesiredCapabilities  capabilities = new DesiredCapabilities();
            capabilities.setBrowserName(browser);
-            wd = new RemoteWebDriver(new URL(properties.getProperty("selenium-server")), capabilities );
+            wd = new RemoteWebDriver(new URL(properties.getProperty("selenium.server")), capabilities );
 
         }
 
