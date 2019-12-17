@@ -29,6 +29,11 @@ task testGroups(type: Test) {useTestNG
         systemProperty 'browser', "${browser}"
 
     }
+    if (project.hasProperty('platform')) {
+        systemProperty 'platform', "${platform}"
+
+    }
+
 
     if (project.hasProperty('target')) {
         systemProperty 'target', "${target}"
@@ -50,6 +55,11 @@ task testContacts(type: Test) {useTestNG
 
     if (project.hasProperty('target')) {
         systemProperty 'target', "${target}"
+
+    }
+
+    if (project.hasProperty('platform')) {
+        systemProperty 'platform', "${platform}"
 
     }
 
